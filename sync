@@ -33,7 +33,7 @@ rm -rf vendor/lineage
 git clone --depth=1 https://github.com/LineageOS/android_hardware_qcom_display hardware/qcom-caf/msm8996/display -b lineage-18.1-caf-msm8996
 git clone --depth=1 https://github.com/LineageOS/android_hardware_qcom_audio hardware/qcom-caf/msm8996/audio -b lineage-18.1-caf-msm8996
 git clone --depth=1 https://github.com/LineageOS/android_hardware_qcom_media hardware/qcom-caf/msm8996/media -b lineage-18.1-caf-msm8996
-git clone --depth=1 https://github.com/reaPeR1010/android_vendor_crdroid -b 11 vendor/lineage
+git clone --depth=1 https://github.com/reaPeR1010/android_vendor_crdroid -b 11.0 vendor/lineage
 git clone --depth=1 https://gitlab.com/Project-Nexus/nexus-clang.git prebuilts/clang/host/linux-x86/nexus-clang -b nexus-14
 
 . /tmp/ci/function
