@@ -6,5 +6,5 @@ lunch lineage_sanders-userdebug
 export TZ=Asia/Kolkata
 
 compile_plox () {
-make bacon -j8
+make bacon -j$(nproc --all)
 }
