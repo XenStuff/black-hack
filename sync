@@ -29,9 +29,12 @@ git clone --depth=1 https://reaPeR1010:$old_token@github.com/reaPeR1010/android_
 rm -rf hardware/qcom-caf/msm8996/display
 rm -rf hardware/qcom-caf/msm8996/audio
 rm -rf hardware/qcom-caf/msm8996/media
+rm -rf vendor/lineage
 git clone --depth=1 https://github.com/LineageOS/android_hardware_qcom_display hardware/qcom-caf/msm8996/display -b lineage-18.1-caf-msm8996
 git clone --depth=1 https://github.com/LineageOS/android_hardware_qcom_audio hardware/qcom-caf/msm8996/audio -b lineage-18.1-caf-msm8996
 git clone --depth=1 https://github.com/LineageOS/android_hardware_qcom_media hardware/qcom-caf/msm8996/media -b lineage-18.1-caf-msm8996
+git clone --depth=1 https://github.com/reaPeR1010/android_vendor_crdroid -b 11 vendor/lineage
+git clone --depth=1 https://gitlab.com/Project-Nexus/nexus-clang.git prebuilts/clang/host/linux-x86/nexus-clang -b nexus-14
 
 . /tmp/ci/function
 tg "$rom_name source sync completed!
