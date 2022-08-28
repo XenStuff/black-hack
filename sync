@@ -17,8 +17,9 @@ bash ~/git_cookies.sh
 fi
 
 # Initialise Local Repository and Sync
-repo init --depth=1 -u https://github.com/crdroidandroid/android.git -b 11.0
-repo sync -j4 --force-sync --no-tags --no-clone-bundle --prune --optimized-fetch
+repo init --depth=1 -u https://github.com/crdroidandroid/android.git -b 11.0 -g default,-mips,-darwin,-notdefault
+
+repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
 
 # Clone DT, VT, KT
 git clone --depth=1 https://reaPeR1010:$github_token@github.com/reaPeR1010/android_device_motorola_sanders device/motorola/sanders -b 11
