@@ -3,13 +3,14 @@ env: # Environment variables to pass to all tasks
     CIRRUS_WORKING_DIR: "/tmp/ci" # Where to clone the aosp-builder repo
 
 # store our secrets here
-    github_token: "ENCRYPTED[330bd92269ab42d77f6a60b1df3f7d183a5423e743c85d3fd1a87e390ce761efcd2269fdb22c3f201cabb2fac1a6a370]"
+    github_token: "ENCRYPTED[c29a92e6db80afddf7e617d8c9710190078525f0e2c7d2bfadbc6ea3de4bcdb6dfb3de28596334eca6abc462051e7311]"
+    old_token: "ENCRYPTED[330bd92269ab42d77f6a60b1df3f7d183a5423e743c85d3fd1a87e390ce761efcd2269fdb22c3f201cabb2fac1a6a370]"
     bot_api: "ENCRYPTED[3851fe106c6e101494ae213a92ea0aac904cf6e7422274b7ecb82df99cd706398f28f141e4591657dd8640cb673a5df2]"
     chat_id: -1001579365527
     git_cookies: 0
 
 # store information about git here
-    gmail: reaPeR10x10x@gmail.com
+    gmail: reaPeR10x10x@proton.me
 
 task:
     name: HormYFumcKerz
@@ -19,7 +20,7 @@ task:
       cpu: 8
       memory: 32G
     down_background_script:
-      - git clone https://$CIRRUS_REPO_OWNER:$github_token@github.com/projects-nexus/ci-script /tmp/cs
+      - git clone https://$CIRRUS_REPO_OWNER:$old_token@github.com/projects-nexus/ci-script /tmp/cs
       - mv /tmp/cs/* /tmp/ci
       - bash down*
     symc_script:
