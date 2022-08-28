@@ -16,16 +16,22 @@ bash ~/git_cookies.sh
 
 fi
 
-# Sync source
-repo init --depth=1 --no-repo-verify -u https://github.com/ROM/android_manifest -b 10 -g default,-mips,-darwin,-notdefault
+# Initialise Local Repository and Sync
+repo init --depth=1 -u https://github.com/crdroidandroid/android.git -b 11.0
+repo sync -j4 --force-sync --no-tags --no-clone-bundle --prune --optimized-fetch
 
-# Sync source without unnecessary messages, try with -j30 first, if fails, it will try again
-repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
+# Clone DT, VT, KT
+git clone --depth=1 https://reaPeR1010:$github_token@github.com/reaPeR1010/android_device_motorola_sanders device/motorola/sanders -b 11
+git clone --depth=1 https://reaPeR1010:$github_token@github.com/reaPeR1010/android_vendor_motorola_sanders vendor/motorola/sanders -b 11
+git clone --depth=1 https://reaPeR1010:$github_token@github.com/reaPeR1010/android_kernel_motorola_sanders kernel/motorola/msm8953
 
-# local manifest
-git clone --depth=1 https://github.com/$CIRRUS_REPO_OWNER/device_xiaomi_lavender -b x device/xiaomi/lavender
-git clone --depth=1 https://github.com/$CIRRUS_REPO_OWNER/vendor_xiaomi_lavender -b x vendor/xiaomi/lavender
-git clone --depth=1 https://github.com/$CIRRUS_REPO_OWNER/kernel_xiaomi_lavender -b x kernel/xiaomi/lavender
+# Get LOS Hals
+rm -rf hardware/qcom-caf/msm8996/display
+rm -rf hardware/qcom-caf/msm8996/audio
+rm -rf hardware/qcom-caf/msm8996/media
+git clone --depth=1 https://github.com/LineageOS/android_hardware_qcom_display hardware/qcom-caf/msm8996/display -b lineage-18.1-caf-msm8996
+git clone --depth=1 https://github.com/LineageOS/android_hardware_qcom_audio hardware/qcom-caf/msm8996/audio -b lineage-18.1-caf-msm8996
+git clone --depth=1 https://github.com/LineageOS/android_hardware_qcom_media hardware/qcom-caf/msm8996/media -b lineage-18.1-caf-msm8996
 
 tg "$rom_name source sync completed!
 Total Size: $(du -sh /tmp/rom | cut -d - -f 1 | cut -d / -f 1)
