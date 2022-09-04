@@ -16,17 +16,18 @@ bash ~/git_cookies.sh
 fi
 
 # Sync source
-repo init --depth=1 --no-repo-verify -u https://github.com/ImSpiDy/android_manifest -b 10 -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify -u https://github.com/AOSPA/manifest -b topaz -g default,-mips,-darwin,-notdefault
+git clone https://github.com/wHo-EM-i/manifest.git --depth 1 -b topaz .repo/local_manifests
 
 # Sync source without unnecessary messages, try with -j30 first, if fails, it will try again
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
 
-# local manifest
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/device_xiaomi_lavender -b hmp device/xiaomi/lavender
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/vendor_xiaomi_lavender -b hmp vendor/xiaomi/lavender
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/Xtreme_Kernel -b 9.2 kernel/xiaomi/lavender
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/XiaomiParts -b 4.4 vendor/XiaomiParts
-git clone --depth=1 https://gitlab.com/Project-Nexus/nexus-clang.git prebuilts/clang/host/linux-x86/nexus-clang -b nexus-14
+# tree
+git clone --depth=1 https://wHo-EM-i:$my_og_token@github.com/$CIRRUS_REPO_OWNER/device_xiaomi_lavender -b topaz device/xiaomi/lavender
+
+# patch
+cd /tmp/rom/system/libhidl && curl https://github.com/ArrowOS/android_system_libhidl/commit/fbdf10a33f546d202ae12b4b864177fea9faa998.patch | git am
+cd /tmp/rom/device/qcom/common && curl https://github.com/wHo-EM-i/android_device_qcom_common/commit/b3a612e836ddf3e9ac766612ee4bd9194b681c95.patch | git am
 
 . /tmp/ci/function
 tg "$rom_name source sync completed!
