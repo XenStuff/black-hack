@@ -1,10 +1,11 @@
 # Normal build steps
 . build/envsetup.sh
-lunch aospa_lavender-user
+lunch p404_lavender-userdebug
 
 # export variable here
 export TZ=Asia/Kolkata
+export SELINUX_IGNORE_NEVERALLOWS=true
 
 compile_plox () {
-./rom-build.sh lavender -t user -j$(nproc --all)
+make bacon -j$(nproc --all)
 }
