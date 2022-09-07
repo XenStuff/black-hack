@@ -2,7 +2,6 @@
 
 mkdir -p /tmp/rom # Where to sync source
 cd /tmp/rom
-. /tmp/ci/function
 
 SECONDS=0
 
@@ -16,17 +15,25 @@ bash ~/git_cookies.sh
 
 fi
 
-# Sync source
-repo init --depth=1 --no-repo-verify -u https://github.com/ROM/android_manifest -b 10 -g default,-mips,-darwin,-notdefault
+# Initialise Local Repository and Sync
+repo init --depth=1 --no-repo-verify -u https://github.com/RiceDroid/android -b twelve -g default,-mips,-darwin,-notdefault
 
-# Sync source without unnecessary messages, try with -j30 first, if fails, it will try again
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
 
-# local manifest
-git clone --depth=1 https://github.com/$CIRRUS_REPO_OWNER/device_xiaomi_lavender -b x device/xiaomi/lavender
-git clone --depth=1 https://github.com/$CIRRUS_REPO_OWNER/vendor_xiaomi_lavender -b x vendor/xiaomi/lavender
-git clone --depth=1 https://github.com/$CIRRUS_REPO_OWNER/kernel_xiaomi_lavender -b x kernel/xiaomi/lavender
+# Clone DT, VT, KT
+git clone --depth=1 https://reaPeR1010:$old_token@github.com/reaPeR1010/android_device_motorola_sanders device/motorola/sanders -b 12
+git clone --depth=1 https://reaPeR1010:$old_token@github.com/reaPeR1010/android_vendor_motorola_sanders vendor/motorola/sanders -b 12
+git clone --depth=1 https://reaPeR1010:$old_token@github.com/reaPeR1010/device_motorola_msm8953-common device/motorola/msm8953-common -b wip
+git clone --depth=1 https://reaPeR1010:$old_token@github.com/reaPeR1010/vendor_motorola_msm8953-common vendor/motorola/msm8953-common -b 12
+git clone --depth=1 https://reaPeR1010:$old_token@github.com/reaPeR1010/android_kernel_motorola_sanders kernel/motorola/msm8953 -b LA.UM.8.6
+git clone --depth=1 https://gitlab.com/reaPeR1010/clang.git prebuilts/clang/host/linux-x86/clang-r458507
+rm -rf system/netd && rm -rf system/bpf && rm -rf frameworks/native && rm -rf vendor/lineage
+git clone --depth=1 https://github.com/reaPeR1010/android_system_netd -b lineage-19.1 system/netd && git clone --depth=1 https://github.com/reaPeR1010/android_system_bpf -b lineage-19.1 system/bpf
+git clone --depth=1 https://github.com/reaPeR1010/android_vendor_rice vendor/lineage
+git clone --depth=1 https://github.com/reaPeR1010/android_frameworks_native-2 frameworks/native
+git clone --depth=1 https://github.com/LineageOS/android_system_tools_dtbtool system/tools/dtbtool
 
+. /tmp/ci/function
 tg "$rom_name source sync completed!
 Total Size: $(du -sh /tmp/rom | cut -d - -f 1 | cut -d / -f 1)
 Time Took: $(($SECONDS / 60)) minute(s) and $(($SECONDS % 60)) second(s).
