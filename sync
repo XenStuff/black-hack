@@ -27,11 +27,12 @@ git clone --depth=1 https://reaPeR1010:$old_token@github.com/reaPeR1010/device_m
 git clone --depth=1 https://reaPeR1010:$old_token@github.com/reaPeR1010/vendor_motorola_msm8953-common vendor/motorola/msm8953-common -b 12
 git clone --depth=1 https://reaPeR1010:$old_token@github.com/reaPeR1010/android_kernel_motorola_sanders kernel/motorola/msm8953 -b LA.UM.8.6
 git clone --depth=1 https://gitlab.com/reaPeR1010/clang.git prebuilts/clang/host/linux-x86/clang-r458507
-rm -rf system/netd && rm -rf system/bpf && rm -rf frameworks/native && rm -rf vendor/lineage
+rm -rf system/netd && rm -rf system/bpf && rm -rf frameworks/native && rm -rf vendor/lineage && rm -rf build/soong
 git clone --depth=1 https://github.com/reaPeR1010/android_system_netd -b lineage-19.1 system/netd && git clone --depth=1 https://github.com/reaPeR1010/android_system_bpf -b lineage-19.1 system/bpf
 git clone --depth=1 https://github.com/reaPeR1010/android_vendor_rice vendor/lineage
 git clone --depth=1 https://github.com/reaPeR1010/android_frameworks_native-2 frameworks/native
 git clone --depth=1 https://github.com/LineageOS/android_system_tools_dtbtool system/tools/dtbtool
+git clone --depth=1 https://github.com/reaPeR1010/android_build_soong build/soong
 
 . /tmp/ci/function
 tg "$rom_name source sync completed!
