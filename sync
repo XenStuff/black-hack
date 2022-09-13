@@ -22,10 +22,10 @@ repo init --depth=1 --no-repo-verify -u https://github.com/ImSpiDy/android_manif
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
 
 # local manifest
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/device_xiaomi_lavender -b hmp device/xiaomi/lavender
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/vendor_xiaomi_lavender -b hmp vendor/xiaomi/lavender
+git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/device_xiaomi_lavender -b PE device/xiaomi/lavender
+git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/vendor_xiaomi_lavender -b PE vendor/xiaomi/lavender
 git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/Xtreme_Kernel -b 9.2 kernel/xiaomi/lavender
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/XiaomiParts -b 4.4 vendor/XiaomiParts
+#git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/XiaomiParts -b 4.4 vendor/XiaomiParts
 git clone --depth=1 https://gitlab.com/Project-Nexus/nexus-clang.git prebuilts/clang/host/linux-x86/nexus-clang -b nexus-14
 
 . /tmp/ci/function
