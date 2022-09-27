@@ -16,19 +16,11 @@ bash ~/git_cookies.sh
 fi
 
 # Sync source
-repo init --depth=1 --no-repo-verify -u https://ImSpiDy:$my_og_token@github.com/ImSpiDy/android_manifest -b 10 -g default,-mips,-darwin,-notdefault
-
-# Sync source without unnecessary messages, try with -j30 first, if fails, it will try again
+repo init --depth=1 --no-repo-verify -u https://github.com/Project-Awaken/android_manifest.git -b 12.1 -g default,-mips,-darwin,-notdefault
+git clone https://github.com/XenStuff/manifest --depth 1 -b awaken .repo/local_manifests
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all)
 
 # local manifest
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/device_xiaomi_lavender -b hmp device/xiaomi/lavender
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/vendor_xiaomi_lavender -b hmp vendor/xiaomi/lavender
-git clone --depth=1 https://ImSpiDy:$my_og_token@github.com/ImSpiDy/Xtreme_Kernel -b 9.2 kernel/xiaomi/lavender
-git clone --depth=1 https://gitlab.com/Project-Nexus/nexus-clang.git prebuilts/clang/host/linux-x86/nexus-clang -b nexus-14
-git clone --depth=1 https://github.com/Nub-XD/platform_vendor_lawnchair vendor/lawnchair -b 10
-git clone --depth=1 https://github.com/LineageOS/android_hardware_lineage_livedisplay hardware/lineage/livedisplay -b lineage-17.1
-
 . /tmp/ci/function
 tg "$rom_name source sync completed!
 Total Size: $(du -sh /tmp/rom | cut -d - -f 1 | cut -d / -f 1)
